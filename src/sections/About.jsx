@@ -4,6 +4,15 @@ import "./About.css"
 function About() {
   const [isResumeOpen, setIsResumeOpen] = useState(false)
 
+  const openResume = () => {
+    if (window.innerWidth <= 768) {
+      window.location.href = "/resume.pdf"
+      return
+    }
+
+    setIsResumeOpen(true)
+  }
+
   const shareResume = async () => {
     const shareData = {
       title: "Ritesh Chormale - Resume",
@@ -26,7 +35,7 @@ function About() {
   return (
     <section id="about" className="about">
       <div className="section-heading">
-        <p> ABOUT ME</p>
+        <p>ABOUT ME</p>
         <h2>Get to know me.</h2>
       </div>
 
@@ -57,13 +66,7 @@ function About() {
 
           <div
             className="resume-preview"
-            onClick={() => {
-              if (window.innerWidth <= 768) {
-                window.open("/resume.pdf", "_blank", "noopener,noreferrer")
-             } else {
-                 setIsResumeOpen(true)
-             }
-            }}
+            onClick={openResume}
           >
             <div className="resume-paper">
               <h3>RITESH CHORMALE</h3>
@@ -107,7 +110,7 @@ function About() {
 
           <button
             className="resume-button"
-            onClick={() => setIsResumeOpen(true)}
+            onClick={openResume}
           >
             View Resume
           </button>
@@ -115,13 +118,14 @@ function About() {
       </div>
 
       {isResumeOpen && (
-        <div className="resume-modal">
+        <div
+          className="resume-modal"
+          onClick={() => setIsResumeOpen(false)}
+        >
           <div
-            className="modal-backdrop"
-            onClick={() => setIsResumeOpen(false)}
-          ></div>
-
-          <div className="resume-modal-content">
+            className="resume-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="modal-header">
               <div>
                 <p>MY RESUME</p>
@@ -131,6 +135,7 @@ function About() {
               <button
                 className="close-button"
                 onClick={() => setIsResumeOpen(false)}
+                aria-label="Close resume"
               >
                 ×
               </button>

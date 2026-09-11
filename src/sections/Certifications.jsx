@@ -1,87 +1,9 @@
-import { useEffect, useRef, useState } from "react"
-import * as pdfjsLib from "pdfjs-dist"
-import pdfjsWorker from "pdfjs-dist/build/pdf.worker.min.mjs?url"
+import { useState } from "react"
 import "./Certifications.css"
-
-pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker
-
-function CertificateThumbnail({ file, title }) {
-  const canvasRef = useRef(null)
-  const containerRef = useRef(null)
-
-  useEffect(() => {
-    let cancelled = false
-
-    const renderPreview = async () => {
-      try {
-        const url = `/Certificates/${file}`
-        const pdf = await pdfjsLib.getDocument(url).promise
-
-        if (cancelled) return
-
-        const page = await pdf.getPage(1)
-        const containerWidth = containerRef.current?.clientWidth || 600
-
-        const baseViewport = page.getViewport({ scale: 1 })
-        const scale = containerWidth / baseViewport.width
-        const viewport = page.getViewport({ scale })
-
-        const canvas = canvasRef.current
-
-        if (!canvas || cancelled) return
-
-        const context = canvas.getContext("2d")
-
-        canvas.width = viewport.width
-        canvas.height = viewport.height
-
-        await page.render({
-          canvasContext: context,
-          viewport,
-        }).promise
-      } catch (error) {
-        console.error(`Unable to preview ${title}:`, error)
-      }
-    }
-
-    renderPreview()
-
-    return () => {
-      cancelled = true
-    }
-  }, [file, title])
-
-  return (
-    <div
-      ref={containerRef}
-      className="certificate-pdf-thumbnail"
-    >
-      <canvas
-        ref={canvasRef}
-        aria-label={`${title} certificate preview`}
-      />
-    </div>
-  )
-}
 
 function Certifications() {
   const [showAll, setShowAll] = useState(false)
   const [selectedCertificate, setSelectedCertificate] = useState(null)
-  const [isMobile, setIsMobile] = useState(
-    () => window.innerWidth <= 768
-  )
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
-
-    window.addEventListener("resize", handleResize)
-
-    return () => {
-      window.removeEventListener("resize", handleResize)
-    }
-  }, [])
 
   const certifications = [
     {
@@ -186,21 +108,15 @@ function Certifications() {
     },
   ]
 
-  const initialCount = isMobile ? 3 : 6
-
   const displayedCertificates = showAll
     ? certifications
-    : certifications.slice(0, initialCount)
+    : certifications.slice(0, 6)
 
   const openCertificate = (certificate) => {
     const certificateUrl = `/Certificates/${certificate.file}`
 
-    if (isMobile) {
-      window.open(
-        certificateUrl,
-        "_blank",
-        "noopener,noreferrer"
-      )
+    if (window.innerWidth <= 768) {
+      window.location.href = certificateUrl
       return
     }
 
@@ -211,8 +127,6 @@ function Certifications() {
     setSelectedCertificate(null)
   }
 
-  const remainingCount = certifications.length - initialCount
-
   return (
     <section id="certifications" className="certifications section">
       <div className="section-container">
@@ -221,7 +135,11 @@ function Certifications() {
           <h2>Certifications & Learning.</h2>
         </div>
 
-        <div className="certifications-grid">
+        <div
+          className={`certifications-grid ${
+            showAll ? "show-all" : ""
+          }`}
+        >
           {displayedCertificates.map((certificate, index) => (
             <div
               className="certificate-card"
@@ -229,18 +147,16 @@ function Certifications() {
               onClick={() => openCertificate(certificate)}
             >
               <div className="certificate-preview">
-                {isMobile ? (
-                  <CertificateThumbnail
-                    file={certificate.file}
-                    title={certificate.title}
-                  />
-                ) : (
-                  <object
-                    data={`/Certificates/${certificate.file}`}
-                    type="application/pdf"
-                    title={certificate.title}
-                  ></object>
-                )}
+                <object
+                  data={`/Certificates/${certificate.file}`}
+                  type="application/pdf"
+                  title={certificate.title}
+                >
+                  <div className="mobile-pdf-fallback">
+                    <span>PDF</span>
+                    <strong>View Certificate</strong>
+                  </div>
+                </object>
 
                 <div className="certificate-overlay">
                   <span>View Certificate</span>
@@ -262,7 +178,7 @@ function Certifications() {
           >
             {showAll
               ? "Show Less"
-              : `View More (${remainingCount} More)`}
+              : `View More (${certifications.length - 6} More)`}
           </button>
         </div>
       </div>

@@ -49,7 +49,6 @@ a {
     letter-spacing: 2px;
   }
 
-  /* NAVBAR */
   .navbar {
     padding: 16px 18px !important;
     height: auto;
@@ -78,7 +77,9 @@ a {
     transform: translateY(-140%);
     opacity: 0;
     pointer-events: none;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    transition:
+      transform 0.25s ease,
+      opacity 0.25s ease;
     z-index: 1001;
   }
 
@@ -124,7 +125,6 @@ a {
     transition: 0.25s ease;
   }
 
-  /* HERO */
   .hero {
     min-height: auto !important;
     padding: 105px 18px 65px !important;
@@ -210,7 +210,6 @@ a {
     font-size: 0.75rem !important;
   }
 
-  /* ABOUT */
   .about-content {
     grid-template-columns: 1fr !important;
     gap: 35px !important;
@@ -276,7 +275,6 @@ a {
     min-height: 44px;
   }
 
-  /* EDUCATION */
   .education-grid {
     grid-template-columns: 1fr !important;
     gap: 18px !important;
@@ -306,26 +304,24 @@ a {
     border-radius: 10px;
   }
 
-  .certificate-header {
+  .certificate-modal-header {
     padding: 18px 55px 16px 18px !important;
   }
 
-  .certificate-header h3 {
+  .certificate-modal-header h3 {
     font-size: 0.9rem !important;
     line-height: 1.4;
   }
 
-  .certificate-viewer {
+  .certificate-modal-viewer {
     height: calc(94vh - 105px) !important;
   }
 
-  /* EXPERIENCE */
   .experience-card,
   .experience-content {
     width: 100%;
   }
 
-  /* JOURNEY */
   .timeline {
     width: 100%;
   }
@@ -342,7 +338,6 @@ a {
     font-size: 0.85rem;
   }
 
-  /* SKILLS */
   .skills-grid {
     grid-template-columns: 1fr !important;
     gap: 18px !important;
@@ -361,18 +356,21 @@ a {
     font-size: 0.8rem !important;
   }
 
-  /* CERTIFICATIONS */
   .certifications-grid {
     grid-template-columns: 1fr !important;
     gap: 18px !important;
   }
 
   .certificate-card {
-    padding: 18px !important;
+    padding: 0 !important;
   }
 
   .certificate-preview {
     height: 210px !important;
+  }
+
+  .certificate-info {
+    padding: 18px !important;
   }
 
   .certificate-info h3 {
@@ -393,7 +391,6 @@ a {
     height: calc(94vh - 100px) !important;
   }
 
-  /* CONTACT */
   .contact-content {
     grid-template-columns: 1fr !important;
     gap: 30px !important;
@@ -428,7 +425,6 @@ a {
     word-break: break-word;
   }
 
-  /* FOOTER */
   footer {
     width: 100%;
   }

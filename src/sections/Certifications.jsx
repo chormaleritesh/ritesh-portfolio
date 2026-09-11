@@ -12,6 +12,7 @@ function Certifications() {
     }
 
     checkMobile()
+
     window.addEventListener("resize", checkMobile)
 
     return () => {
@@ -130,7 +131,10 @@ function Certifications() {
 
   const remainingCount = certifications.length - initialCount
 
-  const handleViewMore = () => {
+  const handleViewMore = (event) => {
+    event.preventDefault()
+    event.stopPropagation()
+
     setShowAll((current) => !current)
   }
 
@@ -169,6 +173,10 @@ function Certifications() {
                   data={`/Certificates/${certificate.file}`}
                   type="application/pdf"
                   title={certificate.title}
+                  onClick={(event) => event.stopPropagation()}
+                  style={{
+                    pointerEvents: isMobile ? "none" : "auto",
+                  }}
                 >
                   <div className="mobile-pdf-fallback">
                     <span>PDF</span>
@@ -189,11 +197,23 @@ function Certifications() {
           ))}
         </div>
 
-        <div className="certificates-button-container">
+        <div
+          className="certificates-button-container"
+          style={{
+            position: "relative",
+            zIndex: 20,
+          }}
+        >
           <button
             type="button"
             className="view-more-button"
             onClick={handleViewMore}
+            style={{
+              position: "relative",
+              zIndex: 21,
+              touchAction: "manipulation",
+              cursor: "pointer",
+            }}
           >
             {showAll
               ? "Show Less"

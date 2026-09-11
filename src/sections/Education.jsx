@@ -60,7 +60,13 @@ function Education() {
                 {item.certificate ? (
                   <button
                     className="education-period certificate-button"
-                    onClick={() => setCertificateOpen(true)}
+                    onClick={() => {
+                   if (window.innerWidth <= 768) {
+                     window.open("/diploma-certificate.pdf", "_blank", "noopener,noreferrer")
+                   } else {
+                     setCertificateOpen(true)
+                   }
+                  }}
                   >
                     Completed
                   </button>

@@ -1,4 +1,5 @@
 import './App.css'
+import "./Mobile.css"
 import Navbar from './components/Navbar'
 import Hero from './sections/Hero'
 import About from './sections/About'

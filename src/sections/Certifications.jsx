@@ -113,8 +113,15 @@ function Certifications() {
     : certifications.slice(0, 6)
 
   const openCertificate = (certificate) => {
-    setSelectedCertificate(certificate)
+  const certificateUrl = `/Certificates/${certificate.file}`
+
+  if (window.innerWidth <= 768) {
+    window.open(certificateUrl, "_blank", "noopener,noreferrer")
+    return
   }
+
+  setSelectedCertificate(certificate)
+}
 
   const closeCertificate = () => {
     setSelectedCertificate(null)

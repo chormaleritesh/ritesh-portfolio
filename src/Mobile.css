@@ -1,0 +1,491 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  margin: 0;
+}
+
+img,
+iframe,
+object {
+  max-width: 100%;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 70px 18px;
+  }
+
+  .section-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .section-heading {
+    margin-bottom: 35px;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(1.8rem, 8vw, 2.4rem);
+    line-height: 1.2;
+  }
+
+  .section-heading p,
+  .section-heading span {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+  }
+
+  /* NAVBAR */
+  .navbar {
+    padding: 16px 18px !important;
+    height: auto;
+    min-height: 68px;
+  }
+
+  .logo {
+    font-size: 1.15rem;
+    position: relative;
+    z-index: 1002;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 68px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 10px 18px 20px;
+    background: rgba(8, 13, 24, 0.98);
+    border-top: 1px solid #25334a;
+    border-bottom: 1px solid #25334a;
+    transform: translateY(-140%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    z-index: 1001;
+  }
+
+  .nav-links.mobile-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-links a {
+    width: 100%;
+    padding: 14px 8px;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(37, 51, 74, 0.5);
+  }
+
+  .nav-links a:last-child {
+    border-bottom: none;
+  }
+
+  .mobile-menu-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 8px;
+    background: transparent;
+    border: 1px solid #25334a;
+    border-radius: 7px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1002;
+  }
+
+  .mobile-menu-button span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #22d3ee;
+    border-radius: 2px;
+    transition: 0.25s ease;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: auto !important;
+    padding: 105px 18px 65px !important;
+    gap: 35px !important;
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 650px;
+  }
+
+  .hero-tag {
+    font-size: 0.7rem;
+    letter-spacing: 2.5px;
+    margin-bottom: 12px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.7rem, 13vw, 4rem) !important;
+    line-height: 0.98;
+    margin-bottom: 18px;
+  }
+
+  .hero h2 {
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+
+  .hero-description {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    margin-bottom: 25px;
+  }
+
+  .hero-buttons {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    width: 100%;
+    text-align: center;
+    padding: 13px 20px;
+  }
+
+  .hero-stats {
+    width: 100%;
+    justify-content: center;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+
+  .hero-stats strong {
+    font-size: 1.4rem;
+  }
+
+  .hero-stats span {
+    font-size: 0.75rem;
+  }
+
+  .hero-image-section {
+    width: 100% !important;
+    min-height: 350px !important;
+  }
+
+  .image-circle {
+    width: min(76vw, 290px) !important;
+    height: min(76vw, 290px) !important;
+  }
+
+  .availability-badge {
+    right: 50% !important;
+    bottom: 0 !important;
+    transform: translateX(50%) !important;
+    width: max-content;
+    max-width: calc(100% - 30px);
+    white-space: normal !important;
+    text-align: center;
+    padding: 11px 15px !important;
+    font-size: 0.75rem !important;
+  }
+
+  /* ABOUT */
+  .about-content {
+    grid-template-columns: 1fr !important;
+    gap: 35px !important;
+  }
+
+  .about-text {
+    width: 100%;
+  }
+
+  .about-text p {
+    font-size: 0.92rem;
+    line-height: 1.75;
+  }
+
+  .about-stats {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .resume-preview {
+    width: 100% !important;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+
+  .resume-button {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .resume-modal {
+    padding: 10px !important;
+  }
+
+  .resume-modal-content {
+    width: 100% !important;
+    height: 94vh !important;
+    max-height: 94vh;
+    border-radius: 10px;
+  }
+
+  .modal-header {
+    padding: 14px 50px 14px 16px !important;
+  }
+
+  .modal-header h3 {
+    font-size: 1rem;
+  }
+
+  .resume-viewer {
+    height: calc(94vh - 145px) !important;
+  }
+
+  .resume-actions {
+    padding: 10px !important;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .download-button,
+  .share-button {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  /* EDUCATION */
+  .education-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+
+  .education-card {
+    padding: 22px !important;
+  }
+
+  .education-card h3 {
+    font-size: 1.1rem !important;
+  }
+
+  .education-institution {
+    font-size: 0.88rem;
+    overflow-wrap: anywhere;
+  }
+
+  .certificate-modal {
+    padding: 10px !important;
+  }
+
+  .certificate-modal-content {
+    width: 100% !important;
+    height: 94vh !important;
+    max-height: 94vh;
+    border-radius: 10px;
+  }
+
+  .certificate-header {
+    padding: 18px 55px 16px 18px !important;
+  }
+
+  .certificate-header h3 {
+    font-size: 0.9rem !important;
+    line-height: 1.4;
+  }
+
+  .certificate-viewer {
+    height: calc(94vh - 105px) !important;
+  }
+
+  /* EXPERIENCE */
+  .experience-card,
+  .experience-content {
+    width: 100%;
+  }
+
+  /* JOURNEY */
+  .timeline {
+    width: 100%;
+  }
+
+  .timeline-card {
+    padding: 20px !important;
+  }
+
+  .timeline-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .timeline-card h4 {
+    font-size: 0.85rem;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+
+  .skill-card {
+    padding: 22px !important;
+  }
+
+  .skill-list {
+    gap: 8px !important;
+  }
+
+  .skill-list span {
+    padding: 7px 11px !important;
+    font-size: 0.8rem !important;
+  }
+
+  /* CERTIFICATIONS */
+  .certifications-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+
+  .certificate-card {
+    padding: 18px !important;
+  }
+
+  .certificate-preview {
+    height: 210px !important;
+  }
+
+  .certificate-info h3 {
+    font-size: 1rem !important;
+    line-height: 1.4;
+  }
+
+  .certificate-info p {
+    overflow-wrap: anywhere;
+  }
+
+  .view-more-button {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .certificate-modal-viewer {
+    height: calc(94vh - 100px) !important;
+  }
+
+  /* CONTACT */
+  .contact-content {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+
+  .contact-text {
+    position: static !important;
+  }
+
+  .contact-text h3 {
+    font-size: 1.4rem !important;
+  }
+
+  .contact-email {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    font-size: 0.9rem !important;
+  }
+
+  .contact-button {
+    width: 100%;
+    text-align: center;
+    min-height: 44px;
+  }
+
+  .contact-item {
+    padding: 16px 18px !important;
+  }
+
+  .contact-item p {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  /* FOOTER */
+  footer {
+    width: 100%;
+  }
+
+  footer > div {
+    padding: 0 18px !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+    gap: 15px !important;
+  }
+
+  footer h3 {
+    font-size: 1.05rem !important;
+  }
+
+  footer p {
+    font-size: 0.78rem !important;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 420px) {
+  .section {
+    padding: 60px 16px;
+  }
+
+  .hero {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .hero h1 {
+    font-size: 2.65rem !important;
+  }
+
+  .hero-image-section {
+    min-height: 325px !important;
+  }
+
+  .image-circle {
+    width: 255px !important;
+    height: 255px !important;
+  }
+
+  .availability-badge {
+    font-size: 0.7rem !important;
+  }
+
+  .about-stats {
+    gap: 8px !important;
+  }
+
+  .education-card,
+  .skill-card,
+  .certificate-card,
+  .timeline-card {
+    padding: 18px !important;
+  }
+}

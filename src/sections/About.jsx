@@ -57,7 +57,13 @@ function About() {
 
           <div
             className="resume-preview"
-            onClick={() => setIsResumeOpen(true)}
+            onClick={() => {
+              if (window.innerWidth <= 768) {
+                window.open("/resume.pdf", "_blank", "noopener,noreferrer")
+             } else {
+                 setIsResumeOpen(true)
+             }
+            }}
           >
             <div className="resume-paper">
               <h3>RITESH CHORMALE</h3>

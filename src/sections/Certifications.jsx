@@ -3,18 +3,19 @@ import "./Certifications.css"
 
 function Certifications() {
   const [showAll, setShowAll] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const [selectedCertificate, setSelectedCertificate] = useState(null)
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 768)
 
   useEffect(() => {
-    const handleResize = () => {
+    const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768)
     }
 
-    window.addEventListener("resize", handleResize)
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
 
     return () => {
-      window.removeEventListener("resize", handleResize)
+      window.removeEventListener("resize", checkMobile)
     }
   }, [])
 
@@ -123,11 +124,15 @@ function Certifications() {
 
   const initialCount = isMobile ? 3 : 6
 
-  const displayedCertificates = showAll
+  const certificatesToDisplay = showAll
     ? certifications
     : certifications.slice(0, initialCount)
 
-  const remainingCertificates = certifications.length - initialCount
+  const remainingCount = certifications.length - initialCount
+
+  const handleViewMore = () => {
+    setShowAll((current) => !current)
+  }
 
   const openCertificate = (certificate) => {
     const certificateUrl = `/Certificates/${certificate.file}`
@@ -144,10 +149,6 @@ function Certifications() {
     setSelectedCertificate(null)
   }
 
-  const toggleCertificates = () => {
-    setShowAll((previous) => !previous)
-  }
-
   return (
     <section id="certifications" className="certifications section">
       <div className="section-container">
@@ -157,7 +158,7 @@ function Certifications() {
         </div>
 
         <div className="certifications-grid">
-          {displayedCertificates.map((certificate, index) => (
+          {certificatesToDisplay.map((certificate, index) => (
             <div
               className="certificate-card"
               key={`${certificate.file}-${index}`}
@@ -190,12 +191,13 @@ function Certifications() {
 
         <div className="certificates-button-container">
           <button
+            type="button"
             className="view-more-button"
-            onClick={toggleCertificates}
+            onClick={handleViewMore}
           >
             {showAll
               ? "Show Less"
-              : `View More (${remainingCertificates} More)`}
+              : `View More (${remainingCount} More)`}
           </button>
         </div>
       </div>
@@ -216,6 +218,7 @@ function Certifications() {
               </div>
 
               <button
+                type="button"
                 className="certificate-close"
                 onClick={closeCertificate}
                 aria-label="Close certificate"
